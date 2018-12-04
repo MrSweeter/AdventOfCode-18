@@ -27,8 +27,6 @@ public class Program {
 		reader.readAndConsume(Program.class.getResource("input.txt").getPath(), new Consumer<String>() {
 			@Override
 			public void accept(String t) {
-				if (t.startsWith("#"))	{ return; }
-				
 				int value = Integer.parseInt(t);
 				result_1 += value;
 			}
