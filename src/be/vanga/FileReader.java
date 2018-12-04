@@ -1,4 +1,4 @@
-package be.vanga.day1;
+package be.vanga;
 
 import java.io.BufferedReader;
 import java.io.File;

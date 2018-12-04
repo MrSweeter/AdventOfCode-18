@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import be.vanga.FileReader;
+
 public class Program {
 
+	// https://adventofcode.com/2018/day/1
 	public static void main(String[] args) {
 		Program p = new Program();
 		p.puzzle1();
@@ -14,8 +17,6 @@ public class Program {
 	
 	private int result_1 = 0;
 	private int result_2 = 0;
-	private boolean breaker = false;
-	private List<Integer> sequence = new ArrayList<>();
 	
 	public void puzzle1()	{
 		
@@ -34,6 +35,9 @@ public class Program {
 		});
 		System.out.println("Result: " + result_1);
 	}
+	
+	private boolean breaker = false;
+	private List<Integer> sequence = new ArrayList<>();
 	
 	public void puzzle2()	{
 		
