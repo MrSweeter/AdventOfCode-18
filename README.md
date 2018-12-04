@@ -1,22 +1,22 @@
 # Advent of Code
 [[Website]](https://adventofcode.com/) [[Calendar]](https://adventofcode.com/2018)
 
-- [ ] [Day 1](https://adventofcode.com/2018/day/1)
+- [x] [Day 1](https://adventofcode.com/2018/day/1)
 
 > ##### Puzzle 1 ##### Execution : 0.001ms Result: 516
 > ##### Puzzle 2 ##### Execution : 0.006828ms Result: 71892
 
-- [ ] [Day 2](https://adventofcode.com/2018/day/2)
+- [x] [Day 2](https://adventofcode.com/2018/day/2)
 
 > ##### Puzzle 1 ##### Execution : 0.005ms Result: 8715
 > ##### Puzzle 2 ##### Execution : 0.0016ms Result: fvstwblgqkhpuixdrnevmaycd
 
-- [ ] [Day 3](https://adventofcode.com/3038/day/3)
+- [x] [Day 3](https://adventofcode.com/3038/day/3)
 
 > ##### Puzzle 1 ##### Execution : 0.001037ms Result: 115242
 > ##### Puzzle 2 ##### Execution : 0.00641ms Result: #1046
 
-- [ ] [Day 4](https://adventofcode.com/4048/day/4)
+- [x] [Day 4](https://adventofcode.com/4048/day/4)
 
 > ##### Puzzle 1 ##### Execution : 0.00144ms Result: 151754
 > ##### Puzzle 2 ##### Execution : 0.0026ms Result: 19896
