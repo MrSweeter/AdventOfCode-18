@@ -1,91 +1,92 @@
 package be.vanga.day3;
 
-import java.util.function.Consumer;
+import java.io.File;
+import java.io.IOException;
 
-import be.vanga.FileReader;
+import be.vanga.AoCProgram;
 
-public class Program {
+public class Program extends AoCProgram	{
 
 	// https://adventofcode.com/2018/day/3
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Program p = new Program();
 		p.puzzle1();
 		p.puzzle2();
 	}
 	
+	public Program() throws IOException {
+		super(new File(Program.class.getResource("input.txt").getPath()));
+	}
+	
 	private int result_1 = 0;
 	private String result_2 = "";
 	
-	private Claim result;
-	private Claim c;
-	
 	public void puzzle1()	{
+		
 		System.out.println("##### Puzzle 1 #####");
+		long start = System.currentTimeMillis();
 		
-		FileReader reader = new FileReader();
 		int maxSize = 1000;
+		Claim result = null;
 		
-		reader.readAndConsume(Program.class.getResource("input.txt").getPath(), new Consumer<String>() {
-			@Override
-			public void accept(String t) {
-				c = new Claim(t, maxSize);
-				
-				if (result == null)	{
-					result = c;
-				} else {
-					result.add(c);
-				}
-			}
-		});
+		result = loadClaim(result, maxSize);
 		
 		int[][] fabric = result.getFabric();
-		for (int[] is : fabric) {
-			for (int is2 : is) {
-				if (is2 > 1)	{
+		
+		for (int[] row : fabric) {
+			for (int column : row) {
+				if (column > 1)	{
 					result_1++;
 				}
 			}
 		}
 		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Execution : 0.00" + (end-start) + "ms");
 		System.out.println("Result: " + result_1);
 	}
 	
-	private boolean breaker;
+	private Claim loadClaim(Claim result, int maxSize)	{
+		Claim claim = null;
+		for (String input : inputs) {
+			claim = new Claim(input, maxSize);
+			
+			if (result == null)	{
+				result = claim;
+			} else {
+				result.add(claim);
+			}
+		}
+		return result;
+	}
 	
 	public void puzzle2()	{
+		
 		System.out.println("##### Puzzle 2 #####");
+		long start = System.currentTimeMillis();
 		
-		FileReader reader = new FileReader();
 		int maxSize = 1000;
-		result = null;
-		String fileName = "input.txt";
+		Claim result = null;
 		
-		reader.readAndConsume(Program.class.getResource(fileName).getPath(), new Consumer<String>() {
-			@Override
-			public void accept(String t) {
-				c = new Claim(t, maxSize);
-				
-				if (result == null)	{
-					result = c;
-				} else {
-					result.add(c);
-				}
+		result = loadClaim(result, maxSize);
+		
+		boolean breaker = false;
+		
+		Claim claim = null;
+		for (String input : inputs) {
+			if (breaker)	{continue;}
+			
+			claim = new Claim(input, maxSize);
+			if (result.find(claim))	{
+				breaker = true;
+				result_2 = claim.getId();
 			}
-		});
+		}
 		
-		reader.readAndConsume(Program.class.getResource(fileName).getPath(), new Consumer<String>() {
-			@Override
-			public void accept(String t) {
-				if (breaker)	{return;}
-				
-				c = new Claim(t, maxSize);
-				if (result.find(c))	{
-					breaker = true;
-					result_2 = c.getId();
-				}
-			}
-		});
+		long end = System.currentTimeMillis();
 		
+		System.out.println("Execution : 0.00" + (end-start) + "ms");
 		System.out.println("Result: " + result_2);
 	}
 }

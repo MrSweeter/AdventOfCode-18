@@ -1,43 +1,46 @@
 package be.vanga.day2;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
-import be.vanga.FileReader;
+import be.vanga.AoCProgram;
 
-public class Program {
+public class Program extends AoCProgram	{
 
 	// https://adventofcode.com/2018/day/2
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Program p = new Program();
 		p.puzzle1();
 		p.puzzle2();
 	}
 	
-	private int result_1 = 0;
-	private String result_2 = "";
-	
-	private int[] counter = new int[2];
+	public Program() throws IOException {
+		super(new File(Program.class.getResource("input.txt").getPath()));
+	}
 	
 	public void puzzle1()	{
+		
 		System.out.println("##### Puzzle 1 #####");
+		long start = System.currentTimeMillis();
 		
-		FileReader reader = new FileReader();
+		int result;
+		int[] counter = new int[2];
 		
-		reader.readAndConsume(Program.class.getResource("input.txt").getPath(), new Consumer<String>() {
-			@Override
-			public void accept(String t) {
-				
-				if (countLetter(2, t))	{ counter[0]++; }
-				if (countLetter(3, t))	{ counter[1]++; }
-			}
-		});
+		for (String input : inputs) {
+			if (countLetter(2, input))	{ counter[0]++; }
+			if (countLetter(3, input))	{ counter[1]++; }
+		}
 		
-		result_1 = counter[0] * counter[1];
-		System.out.println("Result: " + result_1);
+		result = counter[0] * counter[1];
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Execution : 0.00" + (end-start) + "ms");
+		System.out.println("Result: " + result);
 	}
 	
 	private boolean countLetter(int frequency, String input) {
@@ -46,50 +49,46 @@ public class Program {
 		
 		for (char c : input.toCharArray()) {
 			
+			int v = 1;
 			if (occurence.containsKey(c))	{
-				occurence.put(c, occurence.get(c)+1);
-			} else {
-				occurence.put(c, 1);
+				v = occurence.get(c)+1;
 			}
+			occurence.put(c, v);
 		}
 		return occurence.values().contains(frequency);
 	}
 	
-	private String current;
-	
 	public void puzzle2()	{
+		
 		System.out.println("##### Puzzle 2 #####");
+		long start = System.currentTimeMillis();
 		
-		FileReader reader = new FileReader();
-		String fileName = "input.txt";
+		String result = "";
+		String current = "";
 		
-		reader.readAndConsume(Program.class.getResource(fileName).getPath(), new Consumer<String>() {
-			@Override
-			public void accept(String t) {
-				current = t;
-				if (result_2.length() > 0)	{return;}
+		for (String input : inputs) {
+			current = input;
+			if (result.length() > 0)	{continue;}
+			
+			for (String input2 : inputs) {
+				if (result.length() > 0)	{continue;}
 				
-				reader.readAndConsume(Program.class.getResource(fileName).getPath(), new Consumer<String>() {
-					@Override
-					public void accept(String t) {
-						if (result_2.length() > 0)	{return;}
-						
-						List<Integer> r = difference(t, current);
-						if (r.size() == 1)	{
-							result_2 += current.substring(0, r.get(0));
-							result_2 += current.substring(r.get(0)+1);
-						}
-					}
-				});
+				List<Integer> r = difference(input2, current);
+				if (r.size() == 1)	{
+					result += current.substring(0, r.get(0));
+					result += current.substring(r.get(0)+1);
+				}
 			}
-		});
+		}
 		
-		System.out.println("Result: " + result_2);
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Execution : 0.00" + (end-start) + "ms");
+		System.out.println("Result: " + result);
 	}
 	
 	private List<Integer> difference(String input1, String input2)	{
-		List<Integer> diffs = new ArrayList<>();
-		return diff(input1, input2, 0, diffs);
+		return diff(input1, input2, 0, new ArrayList<>());
 	}
 	
 	private List<Integer> diff(String input1, String input2, int index, List<Integer> differencesIndexes) {
@@ -101,47 +100,4 @@ public class Program {
 			return diff(input1, input2, index+1, differencesIndexes);
 		}
 	}
-	
-	/**
-     * Returns a minimal set of characters that have to be removed from (or added to) the respective
-     * strings to make the strings equal.
-     */
-    public static Pair<String> diff(String a, String b) {
-        return diffHelper(a, b, new HashMap<>());
-    }
-
-    /**
-     * Recursively compute a minimal set of characters while remembering already computed substrings.
-     * Runs in O(n^2).
-     */
-    private static Pair<String> diffHelper(String a, String b, Map<Long, Pair<String>> lookup) {
-        return lookup.computeIfAbsent(((long) a.length()) << 32 | b.length(), k -> {
-            if (a.isEmpty() || b.isEmpty()) {
-                return new Pair<>(a, b);
-            } else if (a.charAt(0) == b.charAt(0)) {
-                return diffHelper(a.substring(1), b.substring(1), lookup);
-            } else {
-                Pair<String> aa = diffHelper(a.substring(1), b, lookup);
-                Pair<String> bb = diffHelper(a, b.substring(1), lookup);
-                if (aa.first.length() + aa.second.length() < bb.first.length() + bb.second.length()) {
-                    return new Pair<>(a.charAt(0) + aa.first, aa.second);
-                } else {
-                    return new Pair<>(bb.first, b.charAt(0) + bb.second);
-                }
-            }
-        });
-    }
-
-    public static class Pair<T> {
-        public Pair(T first, T second) {
-            this.first = first;
-            this.second = second;
-        }
-
-        public final T first, second;
-
-        public String toString() {
-            return "(" + first + "," + second + ")";
-        }
-    }
 }

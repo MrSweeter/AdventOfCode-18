@@ -1,62 +1,64 @@
 package be.vanga.day1;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
-import be.vanga.FileReader;
+import be.vanga.AoCProgram;
 
-public class Program {
+public class Program extends AoCProgram	{
 
 	// https://adventofcode.com/2018/day/1
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Program p = new Program();
 		p.puzzle1();
 		p.puzzle2();
 	}
 	
-	private int result_1 = 0;
-	private int result_2 = 0;
+	public Program() throws IOException {
+		super(new File(Program.class.getResource("input.txt").getPath()));
+	}
 	
 	public void puzzle1()	{
 		
 		System.out.println("##### Puzzle 1 #####");
+		long start = System.currentTimeMillis();
 		
-		FileReader reader = new FileReader();
+		int result = 0;
+		for (String input : inputs) {
+			int value = Integer.parseInt(input);
+			result += value;
+		}
 		
-		reader.readAndConsume(Program.class.getResource("input.txt").getPath(), new Consumer<String>() {
-			@Override
-			public void accept(String t) {
-				int value = Integer.parseInt(t);
-				result_1 += value;
-			}
-		});
-		System.out.println("Result: " + result_1);
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Execution : 0.00" + (end-start) + "ms");
+		System.out.println("Result: " + result);
 	}
-	
-	private boolean breaker = false;
-	private List<Integer> sequence = new ArrayList<>();
 	
 	public void puzzle2()	{
 		
 		System.out.println("##### Puzzle 2 #####");
+		long start = System.currentTimeMillis();
 		
-		FileReader reader = new FileReader();
+		boolean breaker = false;
+		int result=0;
+		List<Integer> sequence = new ArrayList<>();
 		
 		while (!breaker)	{
-			
-			reader.readAndConsume(Program.class.getResource("input.txt").getPath(), new Consumer<String>() {
-				@Override
-				public void accept(String t) {
-					if (t.startsWith("#"))	{ return; }
-					if (sequence.contains(result_2))	{ breaker = true; return; }
-					
-					int value = Integer.parseInt(t);
-					sequence.add(result_2);
-					result_2 += value;
-				}
-			});
+			for (String input : inputs) {
+				if (sequence.contains(result))	{ breaker = true; continue;}
+				
+				int value = Integer.parseInt(input);
+				sequence.add(result);
+				result += value;
+			}
 		}
-		System.out.println("Result: " + result_2);
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Execution : 0.00" + (end-start) + "ms");
+		System.out.println("Result: " + result);
 	}
 }
