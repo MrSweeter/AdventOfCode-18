@@ -68,10 +68,10 @@ public class Program extends AoCProgram	{
 		
 		for (String input : inputs) {
 			current = input;
-			if (result.length() > 0)	{continue;}
+			if (result.length() > 0)	{break;}
 			
 			for (String input2 : inputs) {
-				if (result.length() > 0)	{continue;}
+				if (result.length() > 0)	{break;}
 				
 				List<Integer> r = difference(input2, current);
 				if (r.size() == 1)	{

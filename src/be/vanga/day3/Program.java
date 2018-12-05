@@ -75,7 +75,7 @@ public class Program extends AoCProgram	{
 		
 		Claim claim = null;
 		for (String input : inputs) {
-			if (breaker)	{continue;}
+			if (breaker)	{break;}
 			
 			claim = new Claim(input, maxSize);
 			if (result.find(claim))	{
