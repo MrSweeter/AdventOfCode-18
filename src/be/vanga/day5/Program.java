@@ -52,7 +52,19 @@ public class Program extends AoCProgram	{
 		System.out.println("##### Puzzle 2 #####");
 		long start = System.currentTimeMillis();
 		
-		int result=0;
+		int result = Integer.MAX_VALUE;
+		String input = inputs.get(0);
+		
+		String value = "";
+		for (int i = 0; i < 26; i++) {
+			
+			value = input.replaceAll((char)(i+'a')+"|"+(char)(i+'A'), ""); 
+			value = check(value);
+			
+			if (value.length() < result)	{
+				result = value.length();
+			}
+		}
 		
 		long end = System.currentTimeMillis();
 		
