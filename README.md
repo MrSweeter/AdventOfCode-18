@@ -21,11 +21,20 @@
 > ##### Puzzle 1 ##### Execution : 0.00144ms Result: 151754
 > ##### Puzzle 2 ##### Execution : 0.0026ms Result: 19896
 
-- [ ] [Day 5](https://adventofcode.com/5058/day/5)
+- [x] [Day 5](https://adventofcode.com/5058/day/5)
 
-- [ ] [Day 6](https://adventofcode.com/6068/day/6)
+> ##### Puzzle 1 ##### Execution : 0.001670ms Result: 10774
+> ##### Puzzle 2 ##### Execution : 0.0039636ms Result: 5122
 
-- [ ] [Day 7](https://adventofcode.com/7078/day/7)
+- [x] [Day 6](https://adventofcode.com/6068/day/6)
+
+> ##### Puzzle 1 ##### Execution : 0.00784ms Result: 4887
+> ##### Puzzle 2 ##### Execution : 0.00147ms Result: 34096
+
+- [x] [Day 7](https://adventofcode.com/7078/day/7)
+
+> ##### Puzzle 1 ##### Execution : 0.0017ms Result: GKRVWBESYAMZDPTIUCFXQJLHNO
+> ##### Puzzle 2 ##### Execution : 0.0039ms Result: 903
 
 - [ ] [Day 8](https://adventofcode.com/8088/day/8)
 
