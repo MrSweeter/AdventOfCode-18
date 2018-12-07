@@ -64,18 +64,14 @@ public class Program extends AoCProgram	{
 		init();
 
 		Function<Item, Boolean> condition = item -> item.getPre().size() == 0;
-		char c = findNext(condition);
-		resultList.push(c);
-		result += c;
+		char c;
 		
-		while(items.size() > 1)	{
-			// REMOVE BEFORE FOR FIRST
-			items.remove(c);
-			removeOnProcess(c);
-			
+		while(items.size() > 0)	{
 			c = findNext(condition);
 			resultList.push(c);
 			result += c;
+			items.remove(c);
+			removeOnProcess(c);
 		}
 		
 		long end = System.currentTimeMillis();
