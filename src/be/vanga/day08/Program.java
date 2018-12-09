@@ -36,7 +36,7 @@ public class Program extends AoCProgram	{
 		
 		long end = System.currentTimeMillis();
 		
-		System.out.println("Execution : 0.00" + (end-start) + "ms");
+		System.out.println("Execution : " + (end-start) + "ms");
 		System.out.println("Result: " + result);
 	}
 	private Node toNode()	{
@@ -78,7 +78,7 @@ public class Program extends AoCProgram	{
 		
 		long end = System.currentTimeMillis();
 		
-		System.out.println("Execution : 0.00" + (end-start) + "ms");
+		System.out.println("Execution : " + (end-start) + "ms");
 		System.out.println("Result: " + result);
 	}
 }
